@@ -6,8 +6,6 @@ class Node:
 class Bst:
     def __init__(self):
         self.root = None
-        self.depth = 0
-        self.height = 0
 
     def add_node(self, val):
         if(self.root is None):
@@ -52,6 +50,17 @@ class Bst:
     def delete(self, val):
         if(self.root is None):
             print("Tree is empty")
+        elif(val == self.root.val):
+            cursor = self.root
+            if(cursor.right is not None):
+                temp = cursor.right
+                while(temp.left is not None):
+                    temp = temp.left
+                temp.left = cursor.left
+                self.root = cursor.right
+                cursor.right = None
+            else:
+                self.root = cursor.left
         else:
             cursor = self.root
             prev = None
@@ -111,7 +120,9 @@ bstone.add_node(4)
 bstone.add_node(9)
 bstone.add_node(8)
 bstone.add_node(6)
-bstone.delete(7)
+bstone.delete(10)
+bstone.delete(15)
+bstone.delete(5)
 printBST(bstone.root)
 
 #print(bstone.search(7).val)
